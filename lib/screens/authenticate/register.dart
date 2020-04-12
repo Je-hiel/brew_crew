@@ -3,16 +3,16 @@ import 'package:brewcrew/shared/constants.dart';
 import 'package:brewcrew/shared/loading.dart';
 import 'package:flutter/material.dart';
 
-class SignIn extends StatefulWidget {
+class Register extends StatefulWidget {
   final Function toggleView;
 
-  SignIn({this.toggleView});
+  Register({this.toggleView});
 
   @override
-  _SignInState createState() => _SignInState();
+  _RegisterState createState() => _RegisterState();
 }
 
-class _SignInState extends State<SignIn> {
+class _RegisterState extends State<Register> {
   final AuthService _auth = AuthService();
   final _formKey = GlobalKey<FormState>();
   bool loading = false;
@@ -26,11 +26,11 @@ class _SignInState extends State<SignIn> {
   Widget build(BuildContext context) {
     return loading ? Loading() : Scaffold(
       appBar: AppBar(
-        title: Text('Sign in to Brew Crew'),
+        title: Text('Sign up for Brew Crew'),
         actions: <Widget>[
           FlatButton.icon(
             icon: Icon(Icons.person),
-            label: Text('Register'),
+            label: Text('Sign In'),
             onPressed: () {
               widget.toggleView();
             },
@@ -67,15 +67,15 @@ class _SignInState extends State<SignIn> {
               ),
               SizedBox(height: 20),
               RaisedButton(
-                child: Text('Sign In'),
+                child: Text('Register'),
                 onPressed: () async {
                   if (_formKey.currentState.validate()) {
                     setState(() => loading = true);
-                    dynamic result = await _auth.signInUser(email, password);
+                    dynamic result = await _auth.registerUser(email, password);
 
                     if (result == null) {
                       setState(() {
-                        error = 'Could not sign in with those credentials.';
+                        error = 'Please provide a valid email.';
                         loading = false;
                       });
                     }

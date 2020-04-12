@@ -10,7 +10,6 @@ class Wrapper extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<User>(context);
-    print('In WRAPPER $user');
 
     return user == null ? Authenticate() : Home();
   }
